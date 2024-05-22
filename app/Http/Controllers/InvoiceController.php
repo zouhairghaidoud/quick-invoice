@@ -108,10 +108,70 @@ class InvoiceController extends Controller
         ]);
 
         $invoice->update([
-            'invoice_no' => Str::lower($request->invoice_no),
+            'logo' => $request->logo,
+
+            'seller_company' => $request->seller_company,
+            'seller_address' => $request->seller_address,
+            'seller_zip' => $request->seller_zip,
+            'seller_city' => $request->seller_city,
+            'seller_state' => $request->seller_state,
+            'seller_country' => $request->seller_country,
+
+            'buyer_company' => $request->buyer_company,
+            'buyer_address' => $request->buyer_address,
+            'buyer_zip' => $request->buyer_zip,
+            'buyer_city' => $request->buyer_city,
+            'buyer_state' => $request->buyer_state,
+            'buyer_country' => $request->buyer_country,
+
+            'invoice_no' => $request->invoice_no,
+            'invoice_date' => $request->invoice_date,
+            'due_date' => $request->due_date,
+
+            'notes' => $request->notes,
+            'terms' => $request->terms,
+
+            'has_discount' => $request->has_discount,
+            'discount_type' => $request->discount_type,
+            'discount_value' => $request->discount_value,
+
+            'has_tax' => $request->has_tax,
+            'tax_type' => $request->tax_type,
+            'tax_value' => $request->tax_value,
+
+            'has_shipping' => $request->has_shipping,
+            'shipping_amount' => $request->shipping_amount,
+
+            'currency' => $request->currency,
+            'language' => $request->language,
         ]);
 
-        return back()->with('success', 'Invoice updated successfully.');
+        InvoiceItem::query()->where('invoice_id', $invoice->id)->delete();
+
+        $subTotal = 0;
+
+        foreach ($request->items as $item) {
+            $quantity = $item['quantity'];
+            $price = $item['price'];
+            $subTotal += $quantity * $price;
+
+            $invoiceItem = InvoiceItem::query()
+                ->create([
+                    'invoice_id' => $invoice->id,
+                    'item_name' => $item['item_name'],
+                    'description' => $item['description'],
+                    'quantity' => $quantity,
+                    'price' => $price,
+                    'sub_total' => $quantity * $price,
+                ]);
+        }
+
+        $invoice->update([
+            'sub_total' => $subTotal,
+            'total_amount' => $subTotal,
+        ]);
+
+        return to_route('invoices.show', $invoice->id)->with('success', 'Invoice updated successfully.');
     }
 
     public function destroy(Invoice $invoice)

@@ -67,25 +67,38 @@ const removeItem = (index) => {
     form.items.splice(index, 1);
 }
 
-const calculate = () => {
-    form.sub_total = 0;
-    form.items.forEach((item, index) => {
-        const sub_total = form.items[index].quantity * form.items[index].price;
-        form.items[index].sub_total = sub_total;
-
-        form.sub_total += sub_total;
-    });
-}
-
 const submit = () => {
     form.put(route('invoices.update', props.invoice.id), {
         onFinish: () => form.reset('password'),
     });
 };
 
-watch([form], () => {
-    calculate();
-});
+const setName = (event, index) => {
+    const item_name = event.target.value;
+    form.items[index].item_name = item_name;
+}
+
+const setDescription = (event, index) => {
+    const description = event.target.value;
+    form.items[index].description = description;
+}
+
+const setQty = (event, index) => {
+    const quantity = event.target.value;
+    form.items[index].quantity = quantity;
+
+    const sub_total = form.items[index].quantity * form.items[index].price;
+    form.items[index].sub_total = sub_total;
+}
+
+const setPrice = (event, index) => {
+    const price = event.target.value;
+    form.items[index].price = price;
+
+    const sub_total = form.items[index].quantity * form.items[index].price;
+    form.items[index].sub_total = sub_total;
+}
+
 </script>
 
 <template>
@@ -104,7 +117,7 @@ watch([form], () => {
                         <div class="flex flex-col gap-5">
 
                             <div class="text-gray-900 dark:text-white text-2xl font-bold">
-                                Seller {{ form.sub_total }}
+                                Seller
                             </div>
 
                             <div class="flex items-center gap-5">
@@ -360,24 +373,28 @@ watch([form], () => {
                                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row"
                                         class="py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <input :value="item.item_name" type="text" placeholder="Item name"
+                                        <input @input="setName($event, index)" :value="item.item_name" type="text"
+                                            placeholder="Item name"
                                             class="lg:w-[300px] xl:w-[400px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             required_ />
 
-                                        <textarea :value="item.description" type="text" rows="5"
+                                        <textarea @input="setDescription($event, index)" :value="item.description"
+                                            type="text" rows="5"
                                             class="lg:w-[300px] xl:w-[400px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-3"
                                             placeholder="Description" required_></textarea>
                                     </th>
                                     <td class="px-2 py-4 align-top">
-                                        <input :value="item.quantity" type="text" placeholder="Qty" required_
+                                        <input min="1" @input="setQty($event, index)" :value="item.quantity"
+                                            type="number" placeholder="Qty" required_
                                             class="w-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                     </td>
                                     <td class="px-2 py-4 align-top">
-                                        <input :value="item.price" type="text" placeholder="Price" required_
+                                        <input min="0" @input="setPrice($event, index)" :value="item.price"
+                                            type="number" placeholder="Price" required_
                                             class="w-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                     </td>
                                     <td class="px-2 py-4 align-top">
-                                        <input :value="item.sub_total" type="text" placeholder="Sub Total" required_
+                                        <input :value="item.sub_total" type="number" placeholder="Sub Total" required_
                                             class="w-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             disabled />
                                     </td>
