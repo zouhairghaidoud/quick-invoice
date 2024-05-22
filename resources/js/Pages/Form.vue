@@ -5,6 +5,7 @@ import { Plus, Trash } from 'lucide-vue-next';
 import PrimaryButton from '../Components/PrimaryButton.vue'
 import InputError from '../Components/InputError.vue'
 import { Save } from 'lucide-vue-next';
+import { watch } from 'vue';
 
 const props = defineProps({
     invoice: {
@@ -66,11 +67,25 @@ const removeItem = (index) => {
     form.items.splice(index, 1);
 }
 
+const calculate = () => {
+    form.sub_total = 0;
+    form.items.forEach((item, index) => {
+        const sub_total = form.items[index].quantity * form.items[index].price;
+        form.items[index].sub_total = sub_total;
+
+        form.sub_total += sub_total;
+    });
+}
+
 const submit = () => {
     form.put(route('invoices.update', props.invoice.id), {
         onFinish: () => form.reset('password'),
     });
 };
+
+watch([form], () => {
+    calculate();
+});
 </script>
 
 <template>
@@ -89,7 +104,7 @@ const submit = () => {
                         <div class="flex flex-col gap-5">
 
                             <div class="text-gray-900 dark:text-white text-2xl font-bold">
-                                Seller
+                                Seller {{ form.sub_total }}
                             </div>
 
                             <div class="flex items-center gap-5">
