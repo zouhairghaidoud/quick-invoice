@@ -82,6 +82,8 @@ onMounted(() => {
             </nav>
         </header>
 
-        <slot />
+        <div class="px-4 lg:px-36 py-10">
+            <slot />
+        </div>
     </div>
 </template>

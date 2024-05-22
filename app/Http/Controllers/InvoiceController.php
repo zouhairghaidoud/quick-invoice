@@ -55,7 +55,9 @@ class InvoiceController extends Controller
 
     public function show(Invoice $invoice): Response
     {
-        return Inertia::render('Form');
+        return Inertia::render('Form', [
+            'invoice' => $invoice,
+        ]);
     }
 
     public function update(Request $request, Invoice $invoice)
