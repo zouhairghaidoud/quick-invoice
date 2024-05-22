@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Models\InvoiceItem;
 use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
@@ -40,13 +41,21 @@ class InvoiceController extends Controller
         $invoice = Invoice::query()
             ->where('user_id', Auth::id())
             ->where('total_amount', 0)
-            ->whereDoesntHave('invoiceItems')
             ->first();
 
         if (!$invoice) {
             $invoice = Invoice::query()
                 ->create([
                     'user_id' => Auth::id(),
+                ]);
+
+            InvoiceItem::query()
+                ->create([
+                    'invoice_id' => $invoice->id,
+                    'item_name' => 'Item name 1',
+                    'quantity' => 1,
+                    'price' => 10,
+                    'sub_total' => 10,
                 ]);
         }
 
@@ -55,8 +64,11 @@ class InvoiceController extends Controller
 
     public function show(Invoice $invoice): Response
     {
+        $items = $invoice->invoiceItems->toArray();
+
         return Inertia::render('Form', [
             'invoice' => $invoice,
+            'items' => $items,
         ]);
     }
 

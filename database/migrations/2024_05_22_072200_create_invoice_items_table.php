@@ -15,11 +15,11 @@ return new class extends Migration
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Invoice::class, 'invoice_id');
-            $table->string('item_name');
-            $table->longText('description');
-            $table->integer('quantity')->default(0);
-            $table->decimal('price');
-            $table->decimal('sub_total');
+            $table->string('item_name')->nullable();
+            $table->longText('description')->nullable();
+            $table->integer('quantity')->default(1);
+            $table->decimal('price')->default(0);
+            $table->decimal('sub_total')->default(0);
             $table->timestamps();
         });
     }

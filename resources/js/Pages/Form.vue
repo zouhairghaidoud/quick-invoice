@@ -1,10 +1,15 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Plus, Trash } from 'lucide-vue-next';
 
 const props = defineProps({
     invoice: {
         type: Object,
+        required: true,
+    },
+    items: {
+        type: Array,
         required: true,
     },
 });
@@ -40,8 +45,23 @@ const form = useForm({
     total_amount: props.invoice.total_amount,
     currency: props.invoice.currency,
     language: props.invoice.language,
+
+    items: props.items,
 });
 
+const addItem = () => {
+    form.items.push({
+        item_name: 'Item name ' + (parseInt(form.items.length) + 1),
+        description: '',
+        quantity: 1,
+        price: 10,
+        sub_total: 10,
+    });
+}
+
+const removeItem = (index) => {
+    form.items.splice(index, 1);
+}
 </script>
 
 <template>
@@ -50,323 +70,407 @@ const form = useForm({
 
     <AuthenticatedLayout>
 
+        <div class="grid grid-cols-4 gap-4">
+            <div class="col-span-3">
+                <div
+                    class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
-        <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
 
+                        <div class="flex flex-col gap-5">
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-
-                <div class="flex flex-col gap-5">
-
-                    <div class="text-gray-900 dark:text-white text-2xl font-bold">
-                        Seller
-                    </div>
-
-                    <div class="flex items-center gap-5">
-                        <div class="w-[100px]">
-                            <label for="seller_company"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
-                        </div>
-                        <div class="grow">
-                            <input v-model="form.seller_company" type="text" id="seller_company"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Company" required />
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-5">
-                        <div class="w-[100px]">
-                            <label for="seller_address"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-                        </div>
-                        <div class="grow">
-                            <input v-model="form.seller_address" type="text" id="seller_address"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Address" required />
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-5">
-                        <div class="w-[100px]">
-                            <label for="seller_zip"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ZIP</label>
-                        </div>
-                        <div class="grow">
-                            <input v-model="form.seller_zip" type="text" id="seller_zip"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="ZIP" required />
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-5">
-                        <div class="w-[100px]">
-                            <label for="seller_city"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
-                        </div>
-                        <div class="grow">
-                            <input v-model="form.seller_city" type="text" id="seller_city"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="City" required />
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-5">
-                        <div class="w-[100px]">
-                            <label for="seller_state"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
-                        </div>
-                        <div class="grow">
-                            <input v-model="form.seller_state" type="text" id="seller_state"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="State" required />
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-5">
-                        <div class="w-[100px]">
-                            <label for="seller_country"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
-                        </div>
-                        <div class="grow">
-                            <input v-model="form.seller_country" type="text" id="seller_country"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Country" required />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-5">
-
-                    <div class="text-gray-900 dark:text-white text-2xl font-bold">
-                        Buyer
-                    </div>
-
-                    <div class="flex items-center gap-5">
-                        <div class="w-[100px]">
-                            <label for="buyer_company"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
-                        </div>
-                        <div class="grow">
-                            <input v-model="form.buyer_company" type="text" id="buyer_company"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Company" required />
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-5">
-                        <div class="w-[100px]">
-                            <label for="buyer_address"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-                        </div>
-                        <div class="grow">
-                            <input v-model="form.buyer_address" type="text" id="buyer_address"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Address" required />
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-5">
-                        <div class="w-[100px]">
-                            <label for="buyer_zip"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ZIP</label>
-                        </div>
-                        <div class="grow">
-                            <input v-model="form.buyer_zip" type="text" id="buyer_zip"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="ZIP" required />
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-5">
-                        <div class="w-[100px]">
-                            <label for="buyer_city"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
-                        </div>
-                        <div class="grow">
-                            <input v-model="form.buyer_city" type="text" id="buyer_city"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="City" required />
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-5">
-                        <div class="w-[100px]">
-                            <label for="buyer_state"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
-                        </div>
-                        <div class="grow">
-                            <input v-model="form.buyer_state" type="text" id="buyer_state"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="State" required />
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-5">
-                        <div class="w-[100px]">
-                            <label for="buyer_country"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
-                        </div>
-                        <div class="grow">
-                            <input v-model="form.buyer_country" type="text" id="buyer_country"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Country" required />
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-20">
-                <div class="flex flex-col gap-5">
-
-                    <div class="flex items-center gap-5">
-                        <div class="w-[100px]">
-                            <label for="invoice_no"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Invoice No.</label>
-                        </div>
-                        <div class="grow">
-                            <input v-model="form.invoice_no" type="text" id="invoice_no"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Invoice No." required />
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-5">
-                        <div class="w-[100px]">
-                            <label for="invoice_date"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Invoice
-                                Date</label>
-                        </div>
-                        <div class="grow">
-                            <input v-model="form.invoice_date" type="text" id="invoice_date"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Invoice Date" required />
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-5">
-                        <div class="w-[100px]">
-                            <label for="due_date"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Due</label>
-                        </div>
-                        <div class="grow">
-                            <input v-model="form.due_date" type="text" id="due_date"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Due" required />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-20">
-
-                <div class="flex flex-col gap-5">
-
-                    <div>
-                        <div class="w-[100px]">
-                            <label for="notes"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notes</label>
-                        </div>
-                        <div class="grow">
-                            <textarea v-model="form.notes" type="text" id="notes" rows="5"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Notes" required></textarea>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="w-[100px]">
-                            <label for="terms"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Terms</label>
-                        </div>
-                        <div class="grow">
-                            <textarea v-model="form.terms" type="text" id="terms" rows="5"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Terms" required></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-5">
-
-                    <div class="grid grid-cols-1 lg:grid-cols-3">
-
-                        <label class="inline-flex items-center lg:flex-col gap-2 cursor-pointer">
-                            <input type="checkbox" value="" class="sr-only peer">
-                            <div
-                                class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                            <div class="text-gray-900 dark:text-white text-2xl font-bold">
+                                Seller
                             </div>
-                            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Discount</span>
-                        </label>
 
-                        <label class="inline-flex items-center lg:flex-col gap-2 cursor-pointer">
-                            <input type="checkbox" value="" class="sr-only peer">
-                            <div
-                                class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                            <div class="flex items-center gap-5">
+                                <div class="w-[100px]">
+                                    <label for="seller_company"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
+                                </div>
+                                <div class="grow">
+                                    <input v-model="form.seller_company" type="text" id="seller_company"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Company" required />
+                                </div>
                             </div>
-                            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Tax</span>
-                        </label>
 
-                        <label class="inline-flex items-center lg:flex-col gap-2 cursor-pointer">
-                            <input type="checkbox" value="" class="sr-only peer">
-                            <div
-                                class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                            <div class="flex items-center gap-5">
+                                <div class="w-[100px]">
+                                    <label for="seller_address"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                                </div>
+                                <div class="grow">
+                                    <input v-model="form.seller_address" type="text" id="seller_address"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Address" required />
+                                </div>
                             </div>
-                            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Shipping</span>
-                        </label>
 
-                    </div>
-
-                    <div class="flex justify-between text-gray-900 dark:text-white text-2xl">
-                        <div>Sub Total</div>
-                        <div>MAD 1775</div>
-                    </div>
-
-                    <div class="flex flex-col gap-5">
-
-                        <div class="flex items-center gap-5">
-                            <div class="w-[100px]">
-                                <label for="discount_value"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Discount</label>
+                            <div class="flex items-center gap-5">
+                                <div class="w-[100px]">
+                                    <label for="seller_zip"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ZIP</label>
+                                </div>
+                                <div class="grow">
+                                    <input v-model="form.seller_zip" type="text" id="seller_zip" placeholder="ZIP"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required />
+                                </div>
                             </div>
-                            <div class="grow">
-                                <input v-model="form.discount_value" type="text" id="discount_value"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Discount" required />
+
+                            <div class="flex items-center gap-5">
+                                <div class="w-[100px]">
+                                    <label for="seller_city"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
+                                </div>
+                                <div class="grow">
+                                    <input v-model="form.seller_city" type="text" id="seller_city" placeholder="City"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required />
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-5">
+                                <div class="w-[100px]">
+                                    <label for="seller_state"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
+                                </div>
+                                <div class="grow">
+                                    <input v-model="form.seller_state" type="text" id="seller_state" placeholder="State"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required />
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-5">
+                                <div class="w-[100px]">
+                                    <label for="seller_country"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
+                                </div>
+                                <div class="grow">
+                                    <input v-model="form.seller_country" type="text" id="seller_country"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Country" required />
+                                </div>
                             </div>
                         </div>
 
-                        <div class="flex items-center gap-5">
-                            <div class="w-[100px]">
-                                <label for="tax_value"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tax</label>
+                        <div class="flex flex-col gap-5">
+
+                            <div class="text-gray-900 dark:text-white text-2xl font-bold">
+                                Buyer
                             </div>
-                            <div class="grow">
-                                <input v-model="form.tax_value" type="text" id="tax_value"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Tax" required />
+
+                            <div class="flex items-center gap-5">
+                                <div class="w-[100px]">
+                                    <label for="buyer_company"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
+                                </div>
+                                <div class="grow">
+                                    <input v-model="form.buyer_company" type="text" id="buyer_company"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Company" required />
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-5">
+                                <div class="w-[100px]">
+                                    <label for="buyer_address"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                                </div>
+                                <div class="grow">
+                                    <input v-model="form.buyer_address" type="text" id="buyer_address"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Address" required />
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-5">
+                                <div class="w-[100px]">
+                                    <label for="buyer_zip"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ZIP</label>
+                                </div>
+                                <div class="grow">
+                                    <input v-model="form.buyer_zip" type="text" id="buyer_zip" placeholder="ZIP"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required />
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-5">
+                                <div class="w-[100px]">
+                                    <label for="buyer_city"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
+                                </div>
+                                <div class="grow">
+                                    <input v-model="form.buyer_city" type="text" id="buyer_city" placeholder="City"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required />
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-5">
+                                <div class="w-[100px]">
+                                    <label for="buyer_state"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
+                                </div>
+                                <div class="grow">
+                                    <input v-model="form.buyer_state" type="text" id="buyer_state" placeholder="State"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required />
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-5">
+                                <div class="w-[100px]">
+                                    <label for="buyer_country"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
+                                </div>
+                                <div class="grow">
+                                    <input v-model="form.buyer_country" type="text" id="buyer_country"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Country" required />
+                                </div>
                             </div>
                         </div>
 
-                        <div class="flex items-center gap-5">
-                            <div class="w-[100px]">
-                                <label for="shipping_amount"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Shipping</label>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-20">
+                        <div class="flex flex-col gap-5">
+
+                            <div class="flex items-center gap-5">
+                                <div class="w-[100px]">
+                                    <label for="invoice_no"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Invoice
+                                        No.</label>
+                                </div>
+                                <div class="grow">
+                                    <input v-model="form.invoice_no" type="text" id="invoice_no"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Invoice No." required />
+                                </div>
                             </div>
-                            <div class="grow">
-                                <input v-model="form.shipping_amount" type="text" id="shipping_amount"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Shipping" required />
+
+                            <div class="flex items-center gap-5">
+                                <div class="w-[100px]">
+                                    <label for="invoice_date"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Invoice
+                                        Date</label>
+                                </div>
+                                <div class="grow">
+                                    <input v-model="form.invoice_date" type="text" id="invoice_date"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Invoice Date" required />
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-5">
+                                <div class="w-[100px]">
+                                    <label for="due_date"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Due</label>
+                                </div>
+                                <div class="grow">
+                                    <input v-model="form.due_date" type="text" id="due_date" placeholder="Due"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required />
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="relative overflow-x-auto mt-10">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead class="text-md">
+                                <tr>
+                                    <th scope="col" class="py-3">
+                                        Description
+                                    </th>
+                                    <th scope="col" class="px-2 py-3">
+                                        Qty
+                                    </th>
+                                    <th scope="col" class="px-2 py-3">
+                                        Price
+                                    </th>
+                                    <th scope="col" class="px-2 py-3">
+                                        Sub Total
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(item, index) in form.items"
+                                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    <th scope="row"
+                                        class="py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <input :value="item.item_name" type="text" placeholder="Item name"
+                                            class="lg:w-[300px] xl:w-[400px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            required />
+
+                                        <textarea :value="item.description" type="text" rows="5"
+                                            class="lg:w-[300px] xl:w-[400px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-3"
+                                            placeholder="Description" required></textarea>
+                                    </th>
+                                    <td class="px-2 py-4 align-top">
+                                        <input :value="item.quantity" type="text" placeholder="Qty" required
+                                            class="w-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                    </td>
+                                    <td class="px-2 py-4 align-top">
+                                        <input :value="item.price" type="text" placeholder="Price" required
+                                            class="w-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                    </td>
+                                    <td class="px-2 py-4 align-top">
+                                        <input :value="item.sub_total" type="text" placeholder="Sub Total" required
+                                            class="w-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            disabled />
+                                    </td>
+                                    <td class="px-2 py-4 align-top flex gap-3">
+                                        <button v-if="index == form.items.length - 1" @click="addItem"
+                                            class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-full text-xs px-3 py-3 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                                            <Plus class="w-4 h-4" />
+                                        </button>
+
+                                        <button v-if="index !== 0" @click="removeItem(index)"
+                                            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-full text-xs px-3 py-3 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
+                                            <Trash class="w-4 h-4" />
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
 
                     <div
-                        class="flex justify-between text-gray-900 dark:text-white text-2xl border-t-2 border-gray-900 dark:border-white pt-2">
-                        <div>Total Amount</div>
-                        <div>MAD 1775</div>
+                        class="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-20 border-t-2 border-gray-900 dark:border-white pt-5">
+
+                        <div class="flex flex-col gap-5">
+
+                            <div>
+                                <div class="w-[100px]">
+                                    <label for="notes"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notes</label>
+                                </div>
+                                <div class="grow">
+                                    <textarea v-model="form.notes" type="text" id="notes" rows="6" placeholder="Notes"
+                                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-3"
+                                        required></textarea>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="w-[100px]">
+                                    <label for="terms"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Terms</label>
+                                </div>
+                                <div class="grow">
+                                    <textarea v-model="form.terms" type="text" id="terms" rows="6" placeholder="Terms"
+                                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-3"
+                                        required></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-5">
+
+                            <div class="grid grid-cols-1 lg:grid-cols-3">
+
+                                <label class="inline-flex items-center lg:flex-col gap-2 cursor-pointer">
+                                    <input type="checkbox" value="" class="sr-only peer">
+                                    <div
+                                        class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                    </div>
+                                    <span
+                                        class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Discount</span>
+                                </label>
+
+                                <label class="inline-flex items-center lg:flex-col gap-2 cursor-pointer">
+                                    <input type="checkbox" value="" class="sr-only peer">
+                                    <div
+                                        class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                    </div>
+                                    <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Tax</span>
+                                </label>
+
+                                <label class="inline-flex items-center lg:flex-col gap-2 cursor-pointer">
+                                    <input type="checkbox" value="" class="sr-only peer">
+                                    <div
+                                        class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                    </div>
+                                    <span
+                                        class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Shipping</span>
+                                </label>
+
+                            </div>
+
+                            <div class="flex justify-between text-gray-900 dark:text-white text-2xl">
+                                <div>Sub Total</div>
+                                <div>MAD 1775</div>
+                            </div>
+
+                            <div class="flex flex-col gap-5">
+
+                                <div class="flex items-center gap-5">
+                                    <div class="w-[100px]">
+                                        <label for="discount_value"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Discount</label>
+                                    </div>
+                                    <div class="grow">
+                                        <input v-model="form.discount_value" type="text" id="discount_value"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Discount" required />
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-5">
+                                    <div class="w-[100px]">
+                                        <label for="tax_value"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tax</label>
+                                    </div>
+                                    <div class="grow">
+                                        <input v-model="form.tax_value" type="text" id="tax_value" placeholder="Tax"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            required />
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-5">
+                                    <div class="w-[100px]">
+                                        <label for="shipping_amount"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Shipping</label>
+                                    </div>
+                                    <div class="grow">
+                                        <input v-model="form.shipping_amount" type="text" id="shipping_amount"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Shipping" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="flex justify-between text-gray-900 dark:text-white text-2xl border-t-2 border-gray-900 dark:border-white pt-2">
+                                <div>Total Amount</div>
+                                <div>MAD 1775</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div
+                class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+
+                <Link :href="route('invoices.create')"
+                    class="w-full hidden sm:inline-flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-xs px-3 py-3 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                <svg aria-hidden="true" class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                New Invoice
+                </Link>
             </div>
         </div>
 
