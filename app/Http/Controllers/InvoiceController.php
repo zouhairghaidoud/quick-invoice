@@ -75,14 +75,43 @@ class InvoiceController extends Controller
     public function update(Request $request, Invoice $invoice)
     {
         $request->validate([
+            'logo' => 'required',
+            'seller_company' => 'required',
+            'seller_address' => 'required',
+            'seller_zip' => 'required',
+            'seller_city' => 'required',
+            'seller_state' => 'required',
+            'seller_country' => 'required',
+            'buyer_company' => 'required',
+            'buyer_address' => 'required',
+            'buyer_zip' => 'required',
+            'buyer_city' => 'required',
+            'buyer_state' => 'required',
+            'buyer_country' => 'required',
             'invoice_no' => 'required|unique:invoices,invoice_no,' . $invoice->id . '|max:255',
+            'invoice_date' => 'required',
+            'due_date' => 'required',
+            'notes' => 'required',
+            'terms' => 'required',
+            'sub_total' => 'required',
+            'has_discount' => 'required',
+            'discount_type' => 'required',
+            'discount_value' => 'required',
+            'has_tax' => 'required',
+            'tax_type' => 'required',
+            'tax_value' => 'required',
+            'has_shipping' => 'required',
+            'shipping_amount' => 'required',
+            'total_amount' => 'required',
+            'currency' => 'required',
+            'language' => 'required',
         ]);
 
         $invoice->update([
             'invoice_no' => Str::lower($request->invoice_no),
         ]);
 
-        return to_route('invoices.index')->with('success', 'Invoice updated successfully.');
+        return back()->with('success', 'Invoice updated successfully.');
     }
 
     public function destroy(Invoice $invoice)
