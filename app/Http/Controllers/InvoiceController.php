@@ -146,6 +146,15 @@ class InvoiceController extends Controller
             'language' => $request->language,
         ]);
 
+        $logo = $request->file('logo');
+        if ($logo) {
+            $path = $logo->store('uploads', 'public');
+
+            $invoice->update([
+                'logo' => $path
+            ]);
+        }
+
         InvoiceItem::query()->where('invoice_id', $invoice->id)->delete();
 
         $subTotal = 0;
