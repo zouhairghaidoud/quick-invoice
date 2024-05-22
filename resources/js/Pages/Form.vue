@@ -113,7 +113,7 @@ const setPrice = (event, index) => {
                     class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
                     <div class="mb-5">
-                        <img :src="form.logo" class="w-[150px] h-[180px]">
+                        <img :src="form.logo" class="w-[150px] h-[180px] rounded-xl">
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
