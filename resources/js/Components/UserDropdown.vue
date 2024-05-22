@@ -84,7 +84,7 @@ import { Link } from '@inertiajs/vue3';
         <ul class="py-1 text-gray-500 dark:text-gray-400" aria-labelledby="dropdown">
             <li>
                 <Link :href="route('logout')" method="post" as="button"
-                    class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-start">
                 Sign out
                 </Link>
             </li>
