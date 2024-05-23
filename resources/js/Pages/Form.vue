@@ -6,15 +6,16 @@ import PrimaryButton from '../Components/PrimaryButton.vue'
 import InputError from '../Components/InputError.vue'
 import { Save } from 'lucide-vue-next';
 import { onBeforeUnmount, ref, watch } from 'vue';
+import Checkbox from '@/Components/Checkbox.vue';
 
 const props = defineProps({
     invoice: {
         type: Object,
-        required: true,
+        required_: true,
     },
     items: {
         type: Array,
-        required: true,
+        required_: true,
     },
 });
 
@@ -198,7 +199,7 @@ onBeforeUnmount(() => {
                                 Seller
                             </div>
 
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <div class="w-[100px]">
                                     <label for="seller_company"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
@@ -206,13 +207,13 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <input v-model="form.seller_company" type="text" id="seller_company"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Company" required />
+                                        placeholder="Company" required_ />
 
                                     <InputError class="mt-2" :message="form.errors.seller_company" />
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <div class="w-[100px]">
                                     <label for="seller_address"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
@@ -220,13 +221,13 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <input v-model="form.seller_address" type="text" id="seller_address"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Address" required />
+                                        placeholder="Address" required_ />
 
                                     <InputError class="mt-2" :message="form.errors.seller_address" />
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <div class="w-[100px]">
                                     <label for="seller_zip"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ZIP</label>
@@ -234,13 +235,13 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <input v-model="form.seller_zip" type="text" id="seller_zip" placeholder="ZIP"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required />
+                                        required_ />
 
                                     <InputError class="mt-2" :message="form.errors.seller_zip" />
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <div class="w-[100px]">
                                     <label for="seller_city"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
@@ -248,13 +249,13 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <input v-model="form.seller_city" type="text" id="seller_city" placeholder="City"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required />
+                                        required_ />
 
                                     <InputError class="mt-2" :message="form.errors.seller_city" />
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <div class="w-[100px]">
                                     <label for="seller_state"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
@@ -262,13 +263,13 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <input v-model="form.seller_state" type="text" id="seller_state" placeholder="State"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required />
+                                        required_ />
 
                                     <InputError class="mt-2" :message="form.errors.seller_state" />
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <div class="w-[100px]">
                                     <label for="seller_country"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
@@ -276,7 +277,7 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <input v-model="form.seller_country" type="text" id="seller_country"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Country" required />
+                                        placeholder="Country" required_ />
 
                                     <InputError class="mt-2" :message="form.errors.seller_country" />
                                 </div>
@@ -289,7 +290,7 @@ onBeforeUnmount(() => {
                                 Buyer
                             </div>
 
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <div class="w-[100px]">
                                     <label for="buyer_company"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
@@ -297,13 +298,13 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <input v-model="form.buyer_company" type="text" id="buyer_company"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Company" required />
+                                        placeholder="Company" required_ />
 
                                     <InputError class="mt-2" :message="form.errors.buyer_company" />
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <div class="w-[100px]">
                                     <label for="buyer_address"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
@@ -311,13 +312,13 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <input v-model="form.buyer_address" type="text" id="buyer_address"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Address" required />
+                                        placeholder="Address" required_ />
 
                                     <InputError class="mt-2" :message="form.errors.buyer_address" />
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <div class="w-[100px]">
                                     <label for="buyer_zip"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ZIP</label>
@@ -325,13 +326,13 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <input v-model="form.buyer_zip" type="text" id="buyer_zip" placeholder="ZIP"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required />
+                                        required_ />
 
                                     <InputError class="mt-2" :message="form.errors.buyer_zip" />
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <div class="w-[100px]">
                                     <label for="buyer_city"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
@@ -339,13 +340,13 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <input v-model="form.buyer_city" type="text" id="buyer_city" placeholder="City"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required />
+                                        required_ />
 
                                     <InputError class="mt-2" :message="form.errors.buyer_city" />
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <div class="w-[100px]">
                                     <label for="buyer_state"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
@@ -353,13 +354,13 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <input v-model="form.buyer_state" type="text" id="buyer_state" placeholder="State"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required />
+                                        required_ />
 
                                     <InputError class="mt-2" :message="form.errors.buyer_state" />
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <div class="w-[100px]">
                                     <label for="buyer_country"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
@@ -367,7 +368,7 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <input v-model="form.buyer_country" type="text" id="buyer_country"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Country" required />
+                                        placeholder="Country" required_ />
 
                                     <InputError class="mt-2" :message="form.errors.buyer_country" />
                                 </div>
@@ -379,7 +380,7 @@ onBeforeUnmount(() => {
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-20">
                         <div class="flex flex-col gap-5">
 
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <div class="w-[100px]">
                                     <label for="invoice_no"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Invoice
@@ -388,13 +389,13 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <input v-model="form.invoice_no" type="text" id="invoice_no"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Invoice No." required />
+                                        placeholder="Invoice No." required_ />
 
                                     <InputError class="mt-2" :message="form.errors.invoice_no" />
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <div class="w-[100px]">
                                     <label for="invoice_date"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -404,13 +405,13 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <input v-model="form.invoice_date" type="date" id="invoice_date"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Invoice Date" required />
+                                        placeholder="Invoice Date" required_ />
 
                                     <InputError class="mt-2" :message="form.errors.invoice_date" />
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
                                 <div class="w-[100px]">
                                     <label for="due_date"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Due</label>
@@ -418,7 +419,7 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <input v-model="form.due_date" type="date" id="due_date" placeholder="Due"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required />
+                                        required_ />
 
                                     <InputError class="mt-2" :message="form.errors.due_date" />
                                 </div>
@@ -454,24 +455,24 @@ onBeforeUnmount(() => {
                                         <input @input="setName($event, index)" :value="item.item_name" type="text"
                                             placeholder="Item name"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            required />
+                                            required_ />
 
                                         <textarea @input="setDescription($event, index)" :value="item.description"
-                                            type="text" rows="5"
+                                            type="text" rows="3"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-3"
-                                            placeholder="Description" required></textarea>
+                                            placeholder="Description" required_></textarea>
                                     </td>
                                     <!-- Qty -->
                                     <td class="px-2 py-4 align-top">
                                         <input min="1" @input="setQty($event, index)" :value="item.quantity"
-                                            type="number" placeholder="Qty" required
+                                            type="number" placeholder="Qty" required_
                                             class="w-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                     </td>
                                     <!-- Price -->
                                     <td class="px-2 py-4 align-top flex gap-2 items-center">
                                         <span class="text-gray-900 dark:text-white">{{ form.currency }}</span>
                                         <input min="0" @input="setPrice($event, index)" :value="item.price"
-                                            type="number" placeholder="Price" required
+                                            type="number" placeholder="Price" required_
                                             class="w-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                     </td>
                                     <!-- Sub Total -->
@@ -480,7 +481,7 @@ onBeforeUnmount(() => {
                                             <div class="flex gap-2 items-center">
                                                 <span class="text-gray-900 dark:text-white">{{ form.currency }}</span>
                                                 <input :value="item.sub_total" type="number" placeholder="Sub Total"
-                                                    required
+                                                    required_
                                                     class="w-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     disabled />
                                             </div>
@@ -517,7 +518,7 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <textarea v-model="form.notes" type="text" id="notes" rows="6" placeholder="Notes"
                                         class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-3"
-                                        required></textarea>
+                                        required_></textarea>
 
                                     <InputError class="mt-2" :message="form.errors.notes" />
                                 </div>
@@ -531,7 +532,7 @@ onBeforeUnmount(() => {
                                 <div class="grow">
                                     <textarea v-model="form.terms" type="text" id="terms" rows="6" placeholder="Terms"
                                         class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-3"
-                                        required></textarea>
+                                        required_></textarea>
 
                                     <InputError class="mt-2" :message="form.errors.terms" />
                                 </div>
@@ -543,7 +544,8 @@ onBeforeUnmount(() => {
                             <div class="grid grid-cols-1 lg:grid-cols-3">
 
                                 <label class="inline-flex items-center lg:flex-col gap-2 cursor-pointer">
-                                    <input type="checkbox" value="" class="sr-only peer">
+                                    <Checkbox name="remember" v-model:checked="form.has_discount"
+                                        class="sr-only peer" />
                                     <div
                                         class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                                     </div>
@@ -552,7 +554,7 @@ onBeforeUnmount(() => {
                                 </label>
 
                                 <label class="inline-flex items-center lg:flex-col gap-2 cursor-pointer">
-                                    <input type="checkbox" value="" class="sr-only peer">
+                                    <Checkbox name="remember" v-model:checked="form.has_tax" class="sr-only peer" />
                                     <div
                                         class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                                     </div>
@@ -560,7 +562,8 @@ onBeforeUnmount(() => {
                                 </label>
 
                                 <label class="inline-flex items-center lg:flex-col gap-2 cursor-pointer">
-                                    <input type="checkbox" value="" class="sr-only peer">
+                                    <Checkbox name="remember" v-model:checked="form.has_shipping"
+                                        class="sr-only peer" />
                                     <div
                                         class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                                     </div>
@@ -577,49 +580,49 @@ onBeforeUnmount(() => {
 
                             <div class="flex flex-col gap-5">
 
-                                <div class="flex items-center gap-5">
+                                <div class="flex items-center gap-3" v-show="form.has_discount">
                                     <div class="w-[100px]">
                                         <label for="discount_value"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Discount</label>
                                     </div>
-                                    <div class="grow flex items-center gap-3">
+                                    <div class="grow flex items-center gap-2">
                                         <div class="text-gray-900 dark:text-white">{{ form.currency }}</div>
                                         <div class="grow">
                                             <input v-model="form.discount_value" type="number" id="discount_value"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                placeholder="Discount" required />
+                                                placeholder="Discount" required_ />
                                             <InputError class="mt-2" :message="form.errors.discount_value" />
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="flex items-center gap-5">
+                                <div class="flex items-center gap-3" v-show="form.has_tax">
                                     <div class="w-[100px]">
                                         <label for="tax_value"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tax</label>
                                     </div>
-                                    <div class="grow flex items-center gap-3">
+                                    <div class="grow flex items-center gap-2">
                                         <div class="text-gray-900 dark:text-white">{{ form.currency }}</div>
                                         <div class="grow">
                                             <input v-model="form.tax_value" type="number" id="tax_value"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                placeholder="Tax" required />
+                                                placeholder="Tax" required_ />
                                             <InputError class="mt-2" :message="form.errors.tax_value" />
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="flex items-center gap-5">
+                                <div class="flex items-center gap-3" v-show="form.has_shipping">
                                     <div class="w-[100px]">
                                         <label for="shipping_amount"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Shipping</label>
                                     </div>
-                                    <div class="grow flex items-center gap-3">
+                                    <div class="grow flex items-center gap-2">
                                         <div class="text-gray-900 dark:text-white">{{ form.currency }}</div>
                                         <div class="grow">
                                             <input v-model="form.shipping_amount" type="number" id="shipping_amount"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                placeholder="Shipping" required />
+                                                placeholder="Shipping" required_ />
                                             <InputError class="mt-2" :message="form.errors.shipping_amount" />
                                         </div>
                                     </div>
@@ -630,8 +633,9 @@ onBeforeUnmount(() => {
                                 class="flex justify-between text-gray-900 dark:text-white text-2xl border-t-2 border-gray-900 dark:border-white pt-2">
                                 <div>Total Amount</div>
                                 <div>{{ form.currency }} {{ parseFloat(form.sub_total) +
-                                    parseFloat(form.tax_value) + parseFloat(form.shipping_amount) -
-                                    parseFloat(form.discount_value) }}
+                                    parseFloat(form.has_tax ? form.tax_value : 0) + parseFloat(form.has_shipping ?
+                                        form.shipping_amount : 0) -
+                                    parseFloat(form.has_discount ? form.discount_value : 0) }}
                                 </div>
                             </div>
                         </div>
