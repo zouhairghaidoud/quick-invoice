@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import { Plus, Trash } from 'lucide-vue-next';
+import { Plus, Printer, Trash } from 'lucide-vue-next';
 import PrimaryButton from '../Components/PrimaryButton.vue'
 import InputError from '../Components/InputError.vue'
 import { Save } from 'lucide-vue-next';
@@ -169,7 +169,7 @@ onBeforeUnmount(() => {
 
     <AuthenticatedLayout>
 
-        <form @submit.prevent="submit" class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <form @submit.prevent="submit" class="grid grid-cols-1 lg:grid-cols-4 gap-4" id="invoiceForm">
             <div class="col-span-3">
                 <div
                     class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -205,8 +205,8 @@ onBeforeUnmount(() => {
                                 </div>
                                 <div class="grow">
                                     <input v-model="form.seller_company" type="text" id="seller_company"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Company" required_ />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Company" required />
 
                                     <InputError class="mt-2" :message="form.errors.seller_company" />
                                 </div>
@@ -219,8 +219,8 @@ onBeforeUnmount(() => {
                                 </div>
                                 <div class="grow">
                                     <input v-model="form.seller_address" type="text" id="seller_address"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Address" required_ />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Address" required />
 
                                     <InputError class="mt-2" :message="form.errors.seller_address" />
                                 </div>
@@ -233,8 +233,8 @@ onBeforeUnmount(() => {
                                 </div>
                                 <div class="grow">
                                     <input v-model="form.seller_zip" type="text" id="seller_zip" placeholder="ZIP"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required_ />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required />
 
                                     <InputError class="mt-2" :message="form.errors.seller_zip" />
                                 </div>
@@ -247,8 +247,8 @@ onBeforeUnmount(() => {
                                 </div>
                                 <div class="grow">
                                     <input v-model="form.seller_city" type="text" id="seller_city" placeholder="City"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required_ />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required />
 
                                     <InputError class="mt-2" :message="form.errors.seller_city" />
                                 </div>
@@ -261,8 +261,8 @@ onBeforeUnmount(() => {
                                 </div>
                                 <div class="grow">
                                     <input v-model="form.seller_state" type="text" id="seller_state" placeholder="State"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required_ />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required />
 
                                     <InputError class="mt-2" :message="form.errors.seller_state" />
                                 </div>
@@ -275,8 +275,8 @@ onBeforeUnmount(() => {
                                 </div>
                                 <div class="grow">
                                     <input v-model="form.seller_country" type="text" id="seller_country"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Country" required_ />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Country" required />
 
                                     <InputError class="mt-2" :message="form.errors.seller_country" />
                                 </div>
@@ -296,8 +296,8 @@ onBeforeUnmount(() => {
                                 </div>
                                 <div class="grow">
                                     <input v-model="form.buyer_company" type="text" id="buyer_company"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Company" required_ />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Company" required />
 
                                     <InputError class="mt-2" :message="form.errors.buyer_company" />
                                 </div>
@@ -310,8 +310,8 @@ onBeforeUnmount(() => {
                                 </div>
                                 <div class="grow">
                                     <input v-model="form.buyer_address" type="text" id="buyer_address"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Address" required_ />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Address" required />
 
                                     <InputError class="mt-2" :message="form.errors.buyer_address" />
                                 </div>
@@ -324,8 +324,8 @@ onBeforeUnmount(() => {
                                 </div>
                                 <div class="grow">
                                     <input v-model="form.buyer_zip" type="text" id="buyer_zip" placeholder="ZIP"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required_ />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required />
 
                                     <InputError class="mt-2" :message="form.errors.buyer_zip" />
                                 </div>
@@ -338,8 +338,8 @@ onBeforeUnmount(() => {
                                 </div>
                                 <div class="grow">
                                     <input v-model="form.buyer_city" type="text" id="buyer_city" placeholder="City"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required_ />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required />
 
                                     <InputError class="mt-2" :message="form.errors.buyer_city" />
                                 </div>
@@ -352,8 +352,8 @@ onBeforeUnmount(() => {
                                 </div>
                                 <div class="grow">
                                     <input v-model="form.buyer_state" type="text" id="buyer_state" placeholder="State"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required_ />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required />
 
                                     <InputError class="mt-2" :message="form.errors.buyer_state" />
                                 </div>
@@ -366,8 +366,8 @@ onBeforeUnmount(() => {
                                 </div>
                                 <div class="grow">
                                     <input v-model="form.buyer_country" type="text" id="buyer_country"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Country" required_ />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Country" required />
 
                                     <InputError class="mt-2" :message="form.errors.buyer_country" />
                                 </div>
@@ -387,8 +387,8 @@ onBeforeUnmount(() => {
                                 </div>
                                 <div class="grow">
                                     <input v-model="form.invoice_no" type="text" id="invoice_no"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Invoice No." required_ />
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Invoice No." required />
 
                                     <InputError class="mt-2" :message="form.errors.invoice_no" />
                                 </div>
@@ -402,9 +402,9 @@ onBeforeUnmount(() => {
                                     </label>
                                 </div>
                                 <div class="grow">
-                                    <input v-model="form.invoice_date" type="text" id="invoice_date"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Invoice Date" required_ />
+                                    <input v-model="form.invoice_date" type="date" id="invoice_date"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Invoice Date" required />
 
                                     <InputError class="mt-2" :message="form.errors.invoice_date" />
                                 </div>
@@ -416,9 +416,9 @@ onBeforeUnmount(() => {
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Due</label>
                                 </div>
                                 <div class="grow">
-                                    <input v-model="form.due_date" type="text" id="due_date" placeholder="Due"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required_ />
+                                    <input v-model="form.due_date" type="date" id="due_date" placeholder="Due"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required />
 
                                     <InputError class="mt-2" :message="form.errors.due_date" />
                                 </div>
@@ -443,49 +443,61 @@ onBeforeUnmount(() => {
                                     <th scope="col" class="px-2 py-3">
                                         Sub Total
                                     </th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(item, index) in form.items"
                                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                    <th scope="row"
-                                        class="py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <!-- Description -->
+                                    <td scope="row"
+                                        class="py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white lg:w-[300px] xl:w-[400px]">
                                         <input @input="setName($event, index)" :value="item.item_name" type="text"
                                             placeholder="Item name"
-                                            class="lg:w-[300px] xl:w-[400px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            required_ />
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            required />
 
                                         <textarea @input="setDescription($event, index)" :value="item.description"
                                             type="text" rows="5"
-                                            class="lg:w-[300px] xl:w-[400px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-3"
-                                            placeholder="Description" required_></textarea>
-                                    </th>
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-3"
+                                            placeholder="Description" required></textarea>
+                                    </td>
+                                    <!-- Qty -->
                                     <td class="px-2 py-4 align-top">
                                         <input min="1" @input="setQty($event, index)" :value="item.quantity"
-                                            type="number" placeholder="Qty" required_
-                                            class="w-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                            type="number" placeholder="Qty" required
+                                            class="w-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                     </td>
-                                    <td class="px-2 py-4 align-top">
+                                    <!-- Price -->
+                                    <td class="px-2 py-4 align-top flex gap-2 items-center">
+                                        <span class="text-gray-900 dark:text-white">{{ form.currency }}</span>
                                         <input min="0" @input="setPrice($event, index)" :value="item.price"
-                                            type="number" placeholder="Price" required_
-                                            class="w-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                            type="number" placeholder="Price" required
+                                            class="w-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                     </td>
+                                    <!-- Sub Total -->
                                     <td class="px-2 py-4 align-top">
-                                        <input :value="item.sub_total" type="number" placeholder="Sub Total" required_
-                                            class="w-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            disabled />
-                                    </td>
-                                    <td class="px-2 py-4 align-top flex gap-3">
-                                        <button type="button" v-if="index == form.items.length - 1" @click="addItem"
-                                            class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-full text-xs px-3 py-3 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                                            <Plus class="w-4 h-4" />
-                                        </button>
+                                        <div class="flex gap-2 items-center justify-between">
+                                            <div class="flex gap-2 items-center">
+                                                <span class="text-gray-900 dark:text-white">{{ form.currency }}</span>
+                                                <input :value="item.sub_total" type="number" placeholder="Sub Total"
+                                                    required
+                                                    class="w-[100px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    disabled />
+                                            </div>
 
-                                        <button type="button" v-if="index !== 0" @click="removeItem(index)"
-                                            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-full text-xs px-3 py-3 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
-                                            <Trash class="w-4 h-4" />
-                                        </button>
+                                            <div class="flex gap-1">
+                                                <button type="button" v-if="index == form.items.length - 1"
+                                                    @click="addItem"
+                                                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-full text-xs px-2 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                                                    <Plus class="w-4 h-4" />
+                                                </button>
+
+                                                <button type="button" v-if="index !== 0" @click="removeItem(index)"
+                                                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-full text-xs px-2 py-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
+                                                    <Trash class="w-4 h-4" />
+                                                </button>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -504,8 +516,8 @@ onBeforeUnmount(() => {
                                 </div>
                                 <div class="grow">
                                     <textarea v-model="form.notes" type="text" id="notes" rows="6" placeholder="Notes"
-                                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-3"
-                                        required_></textarea>
+                                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-3"
+                                        required></textarea>
 
                                     <InputError class="mt-2" :message="form.errors.notes" />
                                 </div>
@@ -518,8 +530,8 @@ onBeforeUnmount(() => {
                                 </div>
                                 <div class="grow">
                                     <textarea v-model="form.terms" type="text" id="terms" rows="6" placeholder="Terms"
-                                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-3"
-                                        required_></textarea>
+                                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-3"
+                                        required></textarea>
 
                                     <InputError class="mt-2" :message="form.errors.terms" />
                                 </div>
@@ -560,7 +572,7 @@ onBeforeUnmount(() => {
 
                             <div class="flex justify-between text-gray-900 dark:text-white text-2xl">
                                 <div>Sub Total</div>
-                                <div>MAD {{ form.sub_total }}</div>
+                                <div>{{ form.currency }} {{ form.sub_total }}</div>
                             </div>
 
                             <div class="flex flex-col gap-5">
@@ -570,11 +582,14 @@ onBeforeUnmount(() => {
                                         <label for="discount_value"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Discount</label>
                                     </div>
-                                    <div class="grow">
-                                        <input v-model="form.discount_value" type="number" id="discount_value"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="Discount" required_ />
-                                        <InputError class="mt-2" :message="form.errors.discount_value" />
+                                    <div class="grow flex items-center gap-3">
+                                        <div class="text-gray-900 dark:text-white">{{ form.currency }}</div>
+                                        <div class="grow">
+                                            <input v-model="form.discount_value" type="number" id="discount_value"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                placeholder="Discount" required />
+                                            <InputError class="mt-2" :message="form.errors.discount_value" />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -583,11 +598,14 @@ onBeforeUnmount(() => {
                                         <label for="tax_value"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tax</label>
                                     </div>
-                                    <div class="grow">
-                                        <input v-model="form.tax_value" type="number" id="tax_value" placeholder="Tax"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            required_ />
-                                        <InputError class="mt-2" :message="form.errors.tax_value" />
+                                    <div class="grow flex items-center gap-3">
+                                        <div class="text-gray-900 dark:text-white">{{ form.currency }}</div>
+                                        <div class="grow">
+                                            <input v-model="form.tax_value" type="number" id="tax_value"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                placeholder="Tax" required />
+                                            <InputError class="mt-2" :message="form.errors.tax_value" />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -596,11 +614,14 @@ onBeforeUnmount(() => {
                                         <label for="shipping_amount"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Shipping</label>
                                     </div>
-                                    <div class="grow">
-                                        <input v-model="form.shipping_amount" type="number" id="shipping_amount"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="Shipping" required_ />
-                                        <InputError class="mt-2" :message="form.errors.shipping_amount" />
+                                    <div class="grow flex items-center gap-3">
+                                        <div class="text-gray-900 dark:text-white">{{ form.currency }}</div>
+                                        <div class="grow">
+                                            <input v-model="form.shipping_amount" type="number" id="shipping_amount"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                placeholder="Shipping" required />
+                                            <InputError class="mt-2" :message="form.errors.shipping_amount" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -608,7 +629,7 @@ onBeforeUnmount(() => {
                             <div
                                 class="flex justify-between text-gray-900 dark:text-white text-2xl border-t-2 border-gray-900 dark:border-white pt-2">
                                 <div>Total Amount</div>
-                                <div>MAD {{ parseFloat(form.sub_total) +
+                                <div>{{ form.currency }} {{ parseFloat(form.sub_total) +
                                     parseFloat(form.tax_value) + parseFloat(form.shipping_amount) -
                                     parseFloat(form.discount_value) }}
                                 </div>
@@ -626,8 +647,32 @@ onBeforeUnmount(() => {
                     <Save class="w-5 h-5" />
                     Save
                 </PrimaryButton>
+
+                <Link href="#"
+                    class="w-full mt-2 flex justify-center items-center gap-2 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                <Printer class="w-5 h-5" />
+                Print
+                </Link>
+
+                <div class="mt-3">
+                    <label for="currency" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Currency
+                    </label>
+                    <select v-model="form.currency" id="currency"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="USD">USD</option>
+                        <option value="MAD">MAD</option>
+                    </select>
+                </div>
             </div>
         </form>
 
     </AuthenticatedLayout>
 </template>
+
+
+<style>
+#invoiceForm input[type="number"] {
+    direction: rtl;
+}
+</style>

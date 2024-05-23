@@ -29,8 +29,8 @@ return new class extends Migration
             $table->string('buyer_state')->nullable();
             $table->string('buyer_country')->nullable();
             $table->string('invoice_no')->nullable();
-            $table->dateTime('invoice_date')->nullable();
-            $table->dateTime('due_date')->nullable();
+            $table->date('invoice_date')->nullable();
+            $table->date('due_date')->nullable();
             $table->longText('notes')->nullable();
             $table->longText('terms')->nullable();
             $table->decimal('sub_total')->default(0);
