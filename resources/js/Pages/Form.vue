@@ -5,7 +5,7 @@ import { Plus, Trash } from 'lucide-vue-next';
 import PrimaryButton from '../Components/PrimaryButton.vue'
 import InputError from '../Components/InputError.vue'
 import { Save } from 'lucide-vue-next';
-import { watch } from 'vue';
+import { onBeforeUnmount, ref, watch } from 'vue';
 
 const props = defineProps({
     invoice: {
@@ -61,14 +61,18 @@ const addItem = () => {
         price: 10,
         sub_total: 10,
     });
+
+    calculate();
 }
 
 const removeItem = (index) => {
     form.items.splice(index, 1);
+
+    calculate();
 }
 
 const submit = () => {
-    form.put(route('invoices.update', props.invoice.id), {
+    form.post(route('invoices.update', props.invoice.id), {
         onFinish: () => form.reset('password'),
     });
 };
@@ -89,6 +93,8 @@ const setQty = (event, index) => {
 
     const sub_total = form.items[index].quantity * form.items[index].price;
     form.items[index].sub_total = sub_total;
+
+    calculate();
 }
 
 const setPrice = (event, index) => {
@@ -97,7 +103,63 @@ const setPrice = (event, index) => {
 
     const sub_total = form.items[index].quantity * form.items[index].price;
     form.items[index].sub_total = sub_total;
+
+    calculate();
 }
+
+const calculate = () => {
+    form.sub_total = 0;
+    form.items.forEach(item => {
+        form.sub_total += parseFloat(item.sub_total);
+    });
+
+
+    form.total_amount = form.sub_total;
+}
+
+//////////////////
+const previewLogo = ref(props.invoice.logo ?? null);
+const logoInfo = ref('');
+
+const handleLogoChange = (event) => {
+    const file = event.target.files[0];
+    form.logo = file;
+
+    if (!file) {
+        return;
+    }
+
+    // Validate file type and size (optional)
+    if (!validateImage(file)) {
+        return;
+    }
+
+    previewLogo.value = URL.createObjectURL(file);
+    logoInfo.value = `File: ${file.name}, Size: ${(file.size / 1024).toFixed(2)}KB`;
+}
+
+function validateImage(file) {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/avif', 'image/svg'];
+    const maxSize = 1024 * 1024; // 1MB limit (adjust as needed)
+
+    if (!allowedTypes.includes(file.type)) {
+        console.error('Invalid image type. Please select a JPEG, PNG, or GIF file.');
+        return false;
+    }
+
+    if (file.size > maxSize) {
+        console.error('Image size exceeds limit. Please select a file under 1MB.');
+        return false;
+    }
+
+    return true;
+}
+
+onBeforeUnmount(() => {
+    if (previewLogo.value) {
+        URL.revokeObjectURL(previewLogo.value);
+    }
+});
 
 </script>
 
@@ -113,7 +175,19 @@ const setPrice = (event, index) => {
                     class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
                     <div class="mb-5">
-                        <img :src="form.logo" class="w-[150px] h-[180px] rounded-xl">
+                        <label class="cursor-pointer d-inline-block w-[150px] h-[180px]">
+                            <input type="file" id="imageFile" accept="image/*" ref="imageFileRef"
+                                @change="handleLogoChange"
+                                class="text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 hidden">
+                            <div v-if="previewLogo" class="mt-3">
+                                <img :src="previewLogo" alt="Preview" class="w-[150px] h-[180px] rounded-xl">
+                                <p class="sr-only">{{ logoInfo }}</p>
+                            </div>
+                            <div v-else
+                                class="w-[150px] h-[180px] rounded-xl border flex items-center justify-center text-gray-900 dark:text-white">
+                                Logo Here
+                            </div>
+                        </label>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -486,7 +560,7 @@ const setPrice = (event, index) => {
 
                             <div class="flex justify-between text-gray-900 dark:text-white text-2xl">
                                 <div>Sub Total</div>
-                                <div>MAD 1775</div>
+                                <div>MAD {{ form.sub_total }}</div>
                             </div>
 
                             <div class="flex flex-col gap-5">
@@ -497,7 +571,7 @@ const setPrice = (event, index) => {
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Discount</label>
                                     </div>
                                     <div class="grow">
-                                        <input v-model="form.discount_value" type="text" id="discount_value"
+                                        <input v-model="form.discount_value" type="number" id="discount_value"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Discount" required_ />
                                         <InputError class="mt-2" :message="form.errors.discount_value" />
@@ -510,7 +584,7 @@ const setPrice = (event, index) => {
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tax</label>
                                     </div>
                                     <div class="grow">
-                                        <input v-model="form.tax_value" type="text" id="tax_value" placeholder="Tax"
+                                        <input v-model="form.tax_value" type="number" id="tax_value" placeholder="Tax"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             required_ />
                                         <InputError class="mt-2" :message="form.errors.tax_value" />
@@ -523,7 +597,7 @@ const setPrice = (event, index) => {
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Shipping</label>
                                     </div>
                                     <div class="grow">
-                                        <input v-model="form.shipping_amount" type="text" id="shipping_amount"
+                                        <input v-model="form.shipping_amount" type="number" id="shipping_amount"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Shipping" required_ />
                                         <InputError class="mt-2" :message="form.errors.shipping_amount" />
@@ -534,7 +608,10 @@ const setPrice = (event, index) => {
                             <div
                                 class="flex justify-between text-gray-900 dark:text-white text-2xl border-t-2 border-gray-900 dark:border-white pt-2">
                                 <div>Total Amount</div>
-                                <div>MAD 1775</div>
+                                <div>MAD {{ parseFloat(form.sub_total) +
+                                    parseFloat(form.tax_value) + parseFloat(form.shipping_amount) -
+                                    parseFloat(form.discount_value) }}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -151,7 +151,7 @@ class InvoiceController extends Controller
             $path = $logo->store('uploads', 'public');
 
             $invoice->update([
-                'logo' => $path
+                'logo' => "/storage/$path"
             ]);
         }
 
@@ -177,7 +177,7 @@ class InvoiceController extends Controller
 
         $invoice->update([
             'sub_total' => $subTotal,
-            'total_amount' => $subTotal,
+            'total_amount' => $subTotal  + $invoice->tax_value + $invoice->shipping_amount - $invoice->discount_value,
         ]);
 
         return to_route('invoices.show', $invoice->id)->with('success', 'Invoice updated successfully.');
